@@ -1,6 +1,6 @@
 #ifndef BOARD_H    
 #define BOARD_H
-
+#include "move.h"
 
 #define MAX_STR_LENGTH 200
 #define END_OF_STR '.'
@@ -17,5 +17,6 @@ void printBoard(int** board);
 void initializeBoard(struct Board* board);
 void parseFenString(char* fenString, int** board);
 char* readStr();
+void printBoardAndMoves(int** board, struct Move* movesList);
 
 #endif

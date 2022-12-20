@@ -4,6 +4,7 @@
 #include "piece.h"
 #include "colors.h"
 #include "board.h"
+#include "move.h"
 
 
 const int BOARD_SIZE = 8;
@@ -26,16 +27,48 @@ void printBoard(int** board)
     {
         for (int j = 0; j < BOARD_SIZE; j++)
         {
+            char c = numToPieceChar(board[i][j]);
+            
             if(board[i][j] == 0)
             {
-                printf(BLU "%d " reset, board[i][j]);
+                printf(BLU "%c " reset, c);
                 continue;
             }
 
             if(isWhite(board[i][j]))
-                printf(BCYN "%c " reset, numToPieceChar(board[i][j]));
+                printf(BCYN "%c " reset, c);
             else
-                printf(BMAG "%c " reset, numToPieceChar(board[i][j]));
+                printf(BMAG "%c " reset, c);
+        }   
+        printf("\n");
+    }
+}
+
+void printBoardAndMoves(int** board, struct Move* movesList)
+{
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        for (int j = 0; j < BOARD_SIZE; j++)
+        {
+            struct Position pos = { i, j };
+            char c = numToPieceChar(board[i][j]);
+
+            if(controlsSquare(pos, movesList))
+            {
+                printf(RED "%c " reset, c);
+                continue;
+            }
+
+            if(board[i][j] == 0)
+            {
+                printf(BLU "%c " reset, c);
+                continue;
+            }
+
+            if(isWhite(board[i][j]))
+                printf(BCYN "%c " reset, c);
+            else
+                printf(BMAG "%c " reset, c);
         }   
         printf("\n");
     }

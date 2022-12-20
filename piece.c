@@ -8,10 +8,20 @@ bool isWhite(int piece)
     return ((piece >> 3) == 1);
 }
 
+int pieceType(int piece)
+{
+    return (piece ^ BLACK) & (piece ^ WHITE);
+}
+
+bool areEnemies(int piece1, int piece2)
+{
+    return (isWhite(piece1) && !isWhite(piece2) || !isWhite(piece1) && isWhite(piece2));
+}
+
 char numToPieceChar(int piece)
 {
     char pieceChar;
-    switch ((piece ^ BLACK) & (piece ^ WHITE))
+    switch (pieceType(piece))
     {
         case KING:
             pieceChar = 'k';

@@ -17,4 +17,7 @@
 
 bool isWhite(int piece);
 char numToPieceChar(int piece);
+int pieceType(int piece);
+bool areEnemies(int piece1, int piece2);
+
 #endif
