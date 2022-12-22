@@ -15,6 +15,9 @@ int pieceType(int piece)
 
 bool areEnemies(int piece1, int piece2)
 {
+    if(piece1 == NONE || piece2 == NONE)
+        return false;
+        
     return (isWhite(piece1) && !isWhite(piece2) || !isWhite(piece1) && isWhite(piece2));
 }
 

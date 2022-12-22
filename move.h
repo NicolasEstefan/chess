@@ -21,5 +21,6 @@ void printMoves(Move* moveList);
 void generateSlidingMoves(Position pos, int** board, Move** moveList);
 bool controlsSquare(Position pos, Move* moveList);
 void generateKnightMoves(Position pos, int** board, Move** moveList);
+void generatePawnMoves(Position pos, int** board, Move** moveList);
 
 #endif

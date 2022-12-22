@@ -142,3 +142,35 @@ void generateKnightMoves(Position pos, int** board, Move** moveList)
     }
     
 }
+
+void generatePawnMoves(Position pos, int** board, Move** moveList) // no en passant yet
+{
+    int piece = board[pos.i][pos.j];
+    int offset = isWhite(piece) ? -1 : 1;
+    Position endPos = { pos.i + offset, pos.j };
+    Move move = { pos, endPos };
+
+    if(isValidPosition(endPos) && board[endPos.i][endPos.j] == NONE)
+        addMove(move, moveList);
+
+    if((isWhite(piece) && pos.i == 6 || !isWhite(piece) && pos.i == 1) && board[endPos.i][endPos.j] == NONE)
+    {
+        endPos.i = pos.i + 2 * offset;
+        move.to = endPos;
+        addMove(move, moveList);
+    }
+
+    endPos.i = pos.i + offset;
+    endPos.j = pos.j + 1;
+    move.to = endPos;
+
+    if(isValidPosition(endPos) && areEnemies(board[endPos.i][endPos.j], piece))
+        addMove(move, moveList);
+    
+    endPos.i = pos.i + offset;
+    endPos.j = pos.j - 1;
+    move.to = endPos;
+
+    if(isValidPosition(endPos) && areEnemies(board[endPos.i][endPos.j], piece))
+        addMove(move, moveList);
+}
