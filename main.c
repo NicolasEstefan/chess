@@ -5,14 +5,14 @@
 
 int main() // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
 {
-    struct Board board;
+    Board board;
     board.board = allocateBoard();
     char* str = readStr();
     parseFenString(str, board.board);
     printBoard(board.board);
 
-    struct Move* moveList = 0;
-    struct Position pos = {3,7};
+    Move* moveList = 0;
+    Position pos = {3,7};
     generateSlidingMoves(pos, board.board, &moveList);
     printBoardAndMoves(board.board, moveList);
 

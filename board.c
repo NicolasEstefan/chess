@@ -44,13 +44,13 @@ void printBoard(int** board)
     }
 }
 
-void printBoardAndMoves(int** board, struct Move* movesList)
+void printBoardAndMoves(int** board, Move* movesList)
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {
         for (int j = 0; j < BOARD_SIZE; j++)
         {
-            struct Position pos = { i, j };
+            Position pos = { i, j };
             char c = numToPieceChar(board[i][j]);
 
             if(controlsSquare(pos, movesList))
@@ -74,7 +74,7 @@ void printBoardAndMoves(int** board, struct Move* movesList)
     }
 }
 
-void initializeBoard(struct Board* board)
+void initializeBoard(Board* board)
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {

@@ -16,7 +16,7 @@ const int DIRECTIONS[8][2] =
     { 1, 0 }
 };
 
-bool moveCompare(struct Move move1, struct Move move2)
+bool moveCompare(Move move1, Move move2)
 {
     return 
     (
@@ -28,20 +28,20 @@ bool moveCompare(struct Move move1, struct Move move2)
 
 }
 
-bool isValidPosition(struct Position pos)
+bool isValidPosition(Position pos)
 {
     return(pos.i >= 0 && pos.i < 8 && pos.j >= 0 && pos.j < 8);
 }
 
-void addMove(struct Move move, struct Move** moveList)
+void addMove(Move move, Move** moveList)
 {
-    struct Move* ptr = (struct Move*) malloc(sizeof(struct Move));
+    Move* ptr = (Move*) malloc(sizeof(Move));
     *ptr = move;
     ptr->next = *moveList;
     *moveList = ptr;
 }
 
-bool containsMove(struct Move move, struct Move* moveList)
+bool containsMove(Move move, Move* moveList)
 {
     while(moveList != 0)
     {
@@ -53,7 +53,7 @@ bool containsMove(struct Move move, struct Move* moveList)
     return false;
 }
 
-bool controlsSquare(struct Position pos, struct Move* moveList)
+bool controlsSquare(Position pos, Move* moveList)
 {
     while(moveList != 0)
     {
@@ -65,7 +65,7 @@ bool controlsSquare(struct Position pos, struct Move* moveList)
     return false;
 }
 
-void printMoves(struct Move* moveList)
+void printMoves(Move* moveList)
 {
     while(moveList != 0)
     {
@@ -76,7 +76,7 @@ void printMoves(struct Move* moveList)
     }
 }
 
-void generateSlidingMoves(struct Position pos, int** board, struct Move** moveList)
+void generateSlidingMoves(Position pos, int** board, Move** moveList)
 {
     int piece = pieceType(board[pos.i][pos.j]);
     int startDirection = (piece == BISHOP || piece == QUEEN) ? 0 : 4;
@@ -84,13 +84,13 @@ void generateSlidingMoves(struct Position pos, int** board, struct Move** moveLi
 
     for (int k = startDirection; k < endDirection; k++)
     {
-        struct Position endPos;
+        Position endPos;
         endPos.i = pos.i + DIRECTIONS[k][0];
         endPos.j = pos.j + DIRECTIONS[k][1];
         
         while (isValidPosition(endPos))
         {
-            struct Move move = { pos, endPos, NULL };
+            Move move = { pos, endPos, NULL };
 
             if(board[endPos.i][endPos.j] == 0)
             {
@@ -108,4 +108,5 @@ void generateSlidingMoves(struct Position pos, int** board, struct Move** moveLi
         
     }
     
+
 }

@@ -3,22 +3,22 @@
 
 #include <stdbool.h>
 
-struct Position
+typedef struct Position
 {
     int i, j;
-};
+} Position;
 
-struct Move
+typedef struct Move
 {
     struct Position from, to;
     struct Move* next;
-};
+} Move;
 
-bool moveCompare(struct Move move1, struct Move move2);
-void addMove(struct Move move, struct Move** moveList);
-bool containsMove(struct Move move, struct Move* listMove);
-void printMoves(struct Move* moveList);
-void generateSlidingMoves(struct Position pos, int** board, struct Move** moveList);
-bool controlsSquare(struct Position pos, struct Move* moveList);
+bool moveCompare(Move move1, Move move2);
+void addMove(Move move, Move** moveList);
+bool containsMove(Move move, Move* listMove);
+void printMoves(Move* moveList);
+void generateSlidingMoves(Position pos, int** board, Move** moveList);
+bool controlsSquare(Position pos, Move* moveList);
 
 #endif
