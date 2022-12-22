@@ -174,3 +174,27 @@ void generatePawnMoves(Position pos, int** board, Move** moveList) // no en pass
     if(isValidPosition(endPos) && areEnemies(board[endPos.i][endPos.j], piece))
         addMove(move, moveList);
 }
+
+void generateKingMoves(Position pos, int** board, Move** moveList)
+{
+    for (int k = 0; k < 8; k++)
+    {
+        Position endPos;
+        endPos.i = pos.i + DIRECTIONS[k][0];
+        endPos.j = pos.j + DIRECTIONS[k][1];
+        
+        if (isValidPosition(endPos))
+        {
+            Move move = { pos, endPos };
+
+            if(board[endPos.i][endPos.j] == 0)
+            {
+                addMove(move, moveList);
+                continue;
+            }
+
+            if(areEnemies(board[pos.i][pos.j], board[endPos.i][endPos.j]))
+                addMove(move, moveList);
+        }
+    }
+}

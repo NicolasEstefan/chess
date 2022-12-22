@@ -13,8 +13,8 @@ int main() // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
     printf("\n");
 
     Move* moveList = 0;
-    Position pos = {3,4};
-    generatePawnMoves(pos, board.board, &moveList);
+    Position pos = {3,5};
+    generateKingMoves(pos, board.board, &moveList);
     printBoardAndMoves(board.board, moveList);
 
     return 0;
