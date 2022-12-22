@@ -20,5 +20,6 @@ bool containsMove(Move move, Move* listMove);
 void printMoves(Move* moveList);
 void generateSlidingMoves(Position pos, int** board, Move** moveList);
 bool controlsSquare(Position pos, Move* moveList);
+void generateKnightMoves(Position pos, int** board, Move** moveList);
 
 #endif

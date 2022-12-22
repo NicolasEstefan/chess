@@ -12,8 +12,8 @@ int main() // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
     printBoard(board.board);
 
     Move* moveList = 0;
-    Position pos = {3,7};
-    generateSlidingMoves(pos, board.board, &moveList);
+    Position pos = {3,3};
+    generateKnightMoves(pos, board.board, &moveList);
     printBoardAndMoves(board.board, moveList);
 
     return 0;

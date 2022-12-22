@@ -16,6 +16,18 @@ const int DIRECTIONS[8][2] =
     { 1, 0 }
 };
 
+const int KNIGHT_OFFSETS[8][2] = 
+{
+    { -2, 1 },
+    { -1, 2 },
+    { 1, 2 },
+    { 2, 1 },
+    { 2, -1 },
+    { 1, -2 },
+    { -1, -2 },
+    { -2, -1 }
+};
+
 bool moveCompare(Move move1, Move move2)
 {
     return 
@@ -105,8 +117,28 @@ void generateSlidingMoves(Position pos, int** board, Move** moveList)
 
             break;
         }
+    }
+}
+
+
+void generateKnightMoves(Position pos, int** board, Move** moveList)
+{
+    Position endPos;
+    
+    for (int i = 0; i < 8; i++)
+    {
+        endPos.i = pos.i + KNIGHT_OFFSETS[i][0];
+        endPos.j = pos.j + KNIGHT_OFFSETS[i][1];
+
+        if(!isValidPosition(endPos)) // if endpos is outside the board
+            continue;
         
+        if(!areEnemies(board[pos.i][pos.j], board[endPos.i][endPos.j])) // if an ally is on endPos
+            continue;
+        
+        Move move = { pos, endPos };
+        addMove(move, moveList);
+
     }
     
-
 }
