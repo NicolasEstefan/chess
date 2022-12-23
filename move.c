@@ -255,3 +255,52 @@ void makeMove(int** board, Move move)
     board[move.to.i][move.to.j] = board[move.from.i][move.from.j];
     board[move.from.i][move.from.j] = NONE;
 }
+
+bool isInCheck(Position kingPos, int** board)
+{
+    for (int i = 0; i < 8; i++) // check if sliding pieces are attacking king
+    {
+        Position pos = { kingPos.i + DIRECTIONS[i][0], kingPos.j + DIRECTIONS[i][1] };
+
+        while(isValidPosition(pos))
+        {
+            int piece = board[pos.i][pos.j];
+
+            if(piece == NONE)
+            {
+                pos.i = pos.i + DIRECTIONS[i][0];
+                pos.j = pos.j + DIRECTIONS[i][1];
+                continue;
+            }
+
+            if(!areEnemies(board[kingPos.i][kingPos.j], piece))
+                break;
+
+            if((i < 4 && pieceType(piece) == BISHOP) || pieceType(piece) == QUEEN)
+                return true;
+            
+            if(i >= 4 && pieceType(piece) == ROOK)
+                return true;
+            
+            if(i < 4 && pieceType(piece) == PAWN && pieceColor(piece) == BLACK && pos.i == kingPos.i - 1)
+                return true;
+            
+            if(i < 4 && pieceType(piece) == PAWN && pieceColor(piece) == WHITE && pos.i == kingPos.i + 1)
+                return true;
+
+            break;
+        }
+    }
+
+    for (int i = 0; i < 8; i++)
+    {
+        Position pos;
+        pos.i = kingPos.i + KNIGHT_OFFSETS[i][0];
+        pos.j = kingPos.j + KNIGHT_OFFSETS[i][1];
+
+        if(isValidPosition(pos) && areEnemies(board[kingPos.i][kingPos.j], board[pos.i][pos.j]) && pieceType(board[pos.i][pos.j]) == KNIGHT)
+            return true;        
+    }
+
+    return false;
+}

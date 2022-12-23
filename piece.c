@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "piece.h"
+#include "board.h"
 
 bool isWhite(int piece)
 {
@@ -57,4 +58,23 @@ char numToPieceChar(int piece)
         pieceChar = toupper(pieceChar);
     
     return pieceChar;
+}
+
+Position findKingPos(Board board)
+{
+    Position pos;
+
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        for (int j = 0; j < BOARD_SIZE; j++)
+        {
+            if(board.board[i][j] == KING + board.colorToMove)
+            {
+                pos.i = i;
+                pos.j = j;
+                return pos;
+            }
+        }
+    }
+    
 }

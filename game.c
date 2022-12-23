@@ -11,13 +11,15 @@ int main()
     board.checkState = NONE;
     board.colorToMove = WHITE;
     board.board = allocateBoard();
-    parseFenString("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", board.board);
+    parseFenString(INITIAL_BOARD, board.board);
 
     Move* availMoves = NULL;
 
     while(1)
     {
-        printBoard(board.board);
+        Position kingPos = findKingPos(board);
+        board.checkState = isInCheck(kingPos, board.board) ? board.colorToMove : NONE;
+        printBoard(board);
         generateAvailMoves(board.board, &availMoves, board.colorToMove);
         Move move = readMove();
         if(containsMove(move, availMoves))

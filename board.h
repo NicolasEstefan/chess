@@ -3,6 +3,7 @@
 #include "move.h"
 
 #define BOARD_SIZE 8
+#define INITIAL_BOARD "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 
 typedef struct Board 
 {
@@ -12,7 +13,7 @@ typedef struct Board
 
 
 int** allocateBoard();
-void printBoard(int** board);
+void printBoard(Board board);
 void initializeBoard(Board* board);
 void parseFenString(char* fenString, int** board);
 char* readStr();

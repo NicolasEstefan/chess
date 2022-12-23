@@ -20,6 +20,6 @@ char numToPieceChar(int piece);
 int pieceType(int piece);
 bool areEnemies(int piece1, int piece2);
 int pieceColor(int piece);
-
+Position findKingPos(Board board);
 
 #endif

@@ -19,7 +19,7 @@ int** allocateBoard()
     return board;    
 }
 
-void printBoard(int** board)
+void printBoard(Board board)
 {
     system("clear");
     for (int i = 0; i < BOARD_SIZE; i++)
@@ -27,15 +27,15 @@ void printBoard(int** board)
         printf("%d   ", i);
         for (int j = 0; j < BOARD_SIZE; j++)
         {
-            char c = numToPieceChar(board[i][j]);
+            char c = numToPieceChar(board.board[i][j]);
             
-            if(board[i][j] == 0)
+            if(board.board[i][j] == 0)
             {
                 printf(BLU "%c " reset, c);
                 continue;
             }
 
-            if(isWhite(board[i][j]))
+            if(isWhite(board.board[i][j]))
                 printf(BCYN "%c " reset, c);
             else
                 printf(BMAG "%c " reset, c);
@@ -48,6 +48,11 @@ void printBoard(int** board)
     for (int i = 0; i < BOARD_SIZE; i++)
         printf("%d ", i);
     printf("\n");
+    
+    printf(board.colorToMove == WHITE ? "White to move" : "Black to move");
+    printf("\n");
+    if(board.checkState != NONE)
+        printf("King in check\n");
 }
 
 void printBoardAndMoves(int** board, Move* movesList)
