@@ -13,11 +13,16 @@ int pieceType(int piece)
     return (piece ^ BLACK) & (piece ^ WHITE);
 }
 
+int pieceColor(int piece)
+{
+    return (piece >> 3) << 3;
+}
+
 bool areEnemies(int piece1, int piece2)
 {
     if(piece1 == NONE || piece2 == NONE)
         return false;
-        
+
     return (isWhite(piece1) && !isWhite(piece2) || !isWhite(piece1) && isWhite(piece2));
 }
 

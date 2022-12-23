@@ -1,3 +1,3 @@
 
 all: 
-	gcc -o main main.c board.c piece.c move.c
+	gcc -o main game.c board.c piece.c move.c userInput.c

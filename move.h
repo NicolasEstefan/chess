@@ -23,5 +23,8 @@ bool controlsSquare(Position pos, Move* moveList);
 void generateKnightMoves(Position pos, int** board, Move** moveList);
 void generatePawnMoves(Position pos, int** board, Move** moveList);
 void generateKingMoves(Position pos, int** board, Move** moveList);
+void generateAvailMoves(int** board, Move** moveList, int colorToMove);
+void makeMove(int** board, Move move);
+void clearMoveList(Move** moveList);
 
 #endif

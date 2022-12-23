@@ -7,8 +7,6 @@
 #include "move.h"
 
 
-const int BOARD_SIZE = 8;
-
 int** allocateBoard()
 {
     int** board = (int**) malloc(BOARD_SIZE * sizeof(int*));
@@ -23,8 +21,10 @@ int** allocateBoard()
 
 void printBoard(int** board)
 {
+    system("clear");
     for (int i = 0; i < BOARD_SIZE; i++)
     {
+        printf("%d   ", i);
         for (int j = 0; j < BOARD_SIZE; j++)
         {
             char c = numToPieceChar(board[i][j]);
@@ -42,6 +42,12 @@ void printBoard(int** board)
         }   
         printf("\n");
     }
+
+    printf("\n    ");
+
+    for (int i = 0; i < BOARD_SIZE; i++)
+        printf("%d ", i);
+    printf("\n");
 }
 
 void printBoardAndMoves(int** board, Move* movesList)
@@ -142,18 +148,3 @@ void parseFenString(char* fenString, int** board)
     }
 }
 
-char* readStr()
-{
-    char* str = (char*) malloc(sizeof(char)* MAX_STR_LENGTH);
-    int i = 0;
-    char c;
-
-    while((c = getc(stdin)) != END_OF_STR && i < MAX_STR_LENGTH - 1)
-    {
-        str[i] = c;
-        i++;
-    }
-    str[i] = '\0';
-
-    return str;
-}

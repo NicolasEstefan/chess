@@ -88,6 +88,19 @@ void printMoves(Move* moveList)
     }
 }
 
+void clearMoveList(Move** moveList)
+{
+    Move* ptr;
+
+    while (*moveList != NULL)
+    {
+        ptr = *moveList;
+        *moveList = ptr->next;
+        free(ptr);
+    }
+
+}
+
 void generateSlidingMoves(Position pos, int** board, Move** moveList)
 {
     int piece = pieceType(board[pos.i][pos.j]);
@@ -133,12 +146,11 @@ void generateKnightMoves(Position pos, int** board, Move** moveList)
         if(!isValidPosition(endPos)) // if endpos is outside the board
             continue;
         
-        if(!areEnemies(board[pos.i][pos.j], board[endPos.i][endPos.j])) // if an ally is on endPos
-            continue;
-        
-        Move move = { pos, endPos };
-        addMove(move, moveList);
-
+        if(board[endPos.i][endPos.j] == NONE || areEnemies(board[pos.i][pos.j], board[endPos.i][endPos.j]))
+        {
+            Move move = { pos, endPos };
+            addMove(move, moveList);
+        }
     }
     
 }
@@ -197,4 +209,49 @@ void generateKingMoves(Position pos, int** board, Move** moveList)
                 addMove(move, moveList);
         }
     }
+}
+
+void generateAvailMoves(int** board, Move** moveList, int colorToMove)
+{
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        for (int j = 0; j < BOARD_SIZE; j++)
+        {
+            int piece = board[i][j];
+
+            if(pieceColor(piece) != colorToMove)
+                continue;
+
+            int type = pieceType(piece);
+            Position pos = { i, j };
+
+            if(type == QUEEN || type == ROOK || type == BISHOP)
+            {
+                generateSlidingMoves(pos, board, moveList);
+                continue;
+            }
+            
+            switch (type)
+            {
+                case KNIGHT:
+                    generateKnightMoves(pos, board, moveList);
+                    break;
+                case KING:
+                    generateKingMoves(pos, board, moveList);
+                    break;
+                case PAWN:
+                    generatePawnMoves(pos, board, moveList);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+}
+
+void makeMove(int** board, Move move)
+{
+    board[move.to.i][move.to.j] = board[move.from.i][move.from.j];
+    board[move.from.i][move.from.j] = NONE;
 }

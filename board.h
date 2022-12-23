@@ -2,8 +2,7 @@
 #define BOARD_H
 #include "move.h"
 
-#define MAX_STR_LENGTH 200
-#define END_OF_STR '.'
+#define BOARD_SIZE 8
 
 typedef struct Board 
 {
